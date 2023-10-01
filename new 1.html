@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отдел ценных бумаг</title>	
+	<link rel = "stylesheet" href = "style.css" type+"text/css/">
+</head>
+<body>
+    <div class="container">
+        <h1>Отдел ценных бумаг</h1>
+        <table>
+            <tr>
+                <th>Ценная бумага</th>
+                <th>Количество в доступе</th>
+                <th>Котировка ценной бумаги</th>
+                <th>Действие</th>
+            </tr>
+            <tr>
+                <td>Акции нефти</td>
+                <td id="quantity_oil">1000</td>
+                 <td id="oil-rate">Загрузка...</td>
+                <td>
+                    <input type="number" id="buy_oil" min="0">
+                    <button onclick="buy('oil')">Приобрести</button>
+            </td> </tr>
+<tr><td>Акции газа</td>
+                <td id="quantity_gas">1000</td>
+                 <td id="gas-rate">Загрузка...</td>
+                <td>
+                    <input type="number" id="buy_gas" min="0">
+                    <button onclick="buy('gas')">Приобрести</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Доллары</td>
+                <td id="quantity_usd">1000</td>
+                 <td id="usd-rate">Загрузка...</td>
+                <td>
+                    <input type="number" id="buy_usd" min="0">
+                    <button onclick="buy('usd')">Приобрести</button>
+                </td></tr></table>
+		<div class="container">
+        <h2>Курс доллара и рубля</h2>
+        <div class="currency">
+            <h3>Доллар США (USD)</h3>
+            <p id="usd-value">Загрузка...</p>
+        </div>
+        <div class="currency">
+            <h3>Российский рубль (RUB)</h3>
+            <p id="rub-value">Загрузка...</p>
+        </div>		
+	<h2>Курс газа и нефти </h2>
+        <div class="currency">
+            <h3>Фьючерс на природный газ (USD)</h3>
+            <p id="g-value">Загрузка...</p>
+        </div>
+        <div class="currency">
+            <h3>Фьючерсы на нефть WTI (USD)</h3>
+            <p id="o-value">Загрузка...</p>
+        </div></div> </div>
+<script>
+    // Объявление функции buy, которая принимает параметр currency
+    function buy(currency) {
+        // Получение элемента DOM с id, содержащим 'quantity_' и переданный currency
+        const quantityElement = document.getElementById(`quantity_${currency}`);
+        // Получение элемента DOM с id, содержащим 'buy_' и переданный currency
+        const buyInput = document.getElementById(`buy_${currency}`);
+        // Преобразование текстового содержимого элемента quantityElement в целое число
+        const quantity = parseInt(quantityElement.innerText);
+        // Преобразование значения из buyInput в целое число
+        const amountToBuy = parseInt(buyInput.value);
+        // Проверка, если amountToBuy меньше или равно quantity
+        if (amountToBuy <= quantity) {
+            // Уменьшение содержимого элемента quantityElement на значение amountToBuy
+            quantityElement.innerText = quantity - amountToBuy;
+        } else {
+            // Вывод сообщения об ошибке, если amountToBuy больше quantity
+            alert("Недостаточно ценных бумаг.");
+        }
+    }
+    // Объявление функции updateCurrencyValues
+    function updateCurrencyValues() {
+        // Генерация случайного значения для курса USD с ограничением диапазона
+        const usdValue = (Math.random() * (0.011 - 0.01) + 0.01).toFixed(5);
+        // Генерация случайного значения для курса RUB с ограничением диапазона
+        const rubValue = (Math.random() * (98 - 96) + 96).toFixed(5);
+        // Генерация случайного значения для курса Gas с ограничением диапазона
+        const gValue = (Math.random() * (2.7 - 2.5) + 2.5).toFixed(5);
+        // Генерация случайного значения для курса Oil с ограничением диапазона
+        const oValue = (Math.random() * (91.6 - 91) + 91).toFixed(5);
+        // Расчет курса GAS, умножая gValue на rubValue и округление до 5 знаков после запятой
+        const gasr = (gValue * rubValue).toFixed(5);
+        // Расчет курса OIL, умножая oValue на rubValue и округление до 5 знаков после запятой
+        const or = (oValue * rubValue).toFixed(5);
+        // Обновление текстового содержимого элементов с соответствующими id
+        document.getElementById('usd-value').textContent = `1₽ = ${usdValue} USD`;
+        document.getElementById('rub-value').textContent = `1$ = ${rubValue} RUB`;
+        document.getElementById('o-value').textContent = `${oValue} USD`;
+        document.getElementById('g-value').textContent = `${gValue} USD`;
+        document.getElementById('usd-rate').textContent = `${rubValue} ₽`;
+        document.getElementById('gas-rate').textContent = `${gasr} ₽`;
+        document.getElementById('oil-rate').textContent = `${or} ₽`;
+    }
+    // Установка интервала для вызова функции updateCurrencyValues каждые 6000 миллисекунд (6 секунд)
+    setInterval(updateCurrencyValues, 6000);
+    window.addEventListener('load', updateCurrencyValues);
+</script>
+<a href="https://www.cbr.ru/" target="_blank" class="btn-link">Перейти на сайт Центробанка</a>	
+<section id="contact">
+        <h2>Контакты</h2>
+        <address>
+
+<script 
+//Загрузка и встраивание интерактивной карты от Yandex Maps
+// Параметры карты указаны в URL, включая размер, язык и другие настройки
+// Скрипт загружается асинхронно для улучшения производительности страницы
+type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A248827db84f6681baaf80aa87b98404fb72b408cd40dbf096f1a5f7513fdbec3&amp;width=500&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+            <p>Email: kir.bystrov2015@yandex.ru</p>
+            <p>Телефон: +7 (902) 26-60-791</p>
+        </address>
+    </section>
+</body>
+</html>
