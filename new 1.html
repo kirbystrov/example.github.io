@@ -7,6 +7,13 @@
 </head>
 <body>
     <div class="container">
+	
+	<div class="sidebar">
+            <button onclick="goToPage('personal_cabinet')">Личный кабинет</button>
+            <button onclick="goToPage('portfolio')">Портфель акций</button>
+            <button onclick="goToPage('securities_department')">Отдел ценных бумаг</button>
+        </div>
+	
         <h1>Отдел ценных бумаг</h1>
         <table>
             <tr>
@@ -104,6 +111,20 @@
     // Установка интервала для вызова функции updateCurrencyValues каждые 6000 миллисекунд (6 секунд)
     setInterval(updateCurrencyValues, 6000);
     window.addEventListener('load', updateCurrencyValues);
+	
+	function goToPage(page) {
+            if (page === 'personal_cabinet') {
+                // Перейти на страницу "Личный кабинет"
+                window.location.href = 'lk.html'; // Укажите правильный путь к вашему файлу HTML
+            } else if (page === 'portfolio') {
+                // Перейти на страницу "Портфель акций"
+                window.location.href = 'portfolio.html'; // Укажите правильный путь к вашему файлу HTML
+            } else if (page === 'securities_department') {
+                // Перейти на страницу "Отдел ценных бумаг"
+                window.location.href = 'new 1.html'; // Укажите правильный путь к вашему файлу HTML
+            }
+        }
+	
 </script>
 <a href="https://www.cbr.ru/" target="_blank" class="btn-link">Перейти на сайт Центробанка</a>	
 <section id="contact">
